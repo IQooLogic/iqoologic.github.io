@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en" data-theme="midnight">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Miloš — Terminal Portfolio</title>
+  <meta name="description" content="Interactive terminal-style CV and portfolio. Type `help` to begin.">
+  <meta name="theme-color" content="#0d1117">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%230d1117'/><text x='10' y='42' font-family='monospace' font-size='30' fill='%2358a6ff'>&gt;_</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <main class="window crt" id="window" aria-label="Terminal portfolio">
+    <header class="titlebar" id="titlebar">
+      <div class="dots">
+        <button class="dot red" id="btn-close" title="Shut down" aria-label="Shut down"></button>
+        <button class="dot yellow" id="btn-min" title="Minimize" aria-label="Minimize"></button>
+        <button class="dot green" id="btn-max" title="Toggle fullscreen" aria-label="Toggle fullscreen"></button>
+      </div>
+      <div class="title" id="title">guest@portfolio: ~</div>
+      <div class="title-actions">
+        <button class="ghost-btn" data-run="gui" title="Open the classic résumé view">GUI</button>
+      </div>
+    </header>
+    <div class="body" id="body">
+      <div class="screen" id="screen" role="log" aria-live="polite">
+        <div id="output"></div>
+      </div>
+      <div class="crt-overlay" aria-hidden="true"></div>
+    </div>
+    <nav class="quickbar" id="quickbar" aria-label="Quick commands">
+      <button data-run="help">help</button>
+      <button data-run="about">about</button>
+      <button data-run="skills">skills</button>
+      <button data-run="experience">experience</button>
+      <button data-run="projects">projects</button>
+      <button data-run="contact">contact</button>
+      <button data-run="gui">gui</button>
+    </nav>
+  </main>
+
+  <button class="dock-icon" id="dock" hidden aria-label="Restore terminal">&gt;_</button>
+
+  <div class="toasts" id="toasts" aria-live="polite"></div>
+  <div class="gui" id="gui" hidden></div>
+
+  <noscript>
+    <p style="padding:2rem;font-family:monospace">This portfolio is an interactive terminal and needs JavaScript. Sorry!</p>
+  </noscript>
+
+  <script src="js/data.js"></script>
+  <script src="js/fs.js"></script>
+  <script src="js/terminal.js"></script>
+  <script src="js/fun.js"></script>
+  <script src="js/commands.js"></script>
+  <script src="js/gui.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
