@@ -1,49 +1,11 @@
-/* msh — the tiny shell that powers the portfolio. */
+/* msh — the tiny shell that powers the portfolio. Commands are registered by modules, see core/portfolio.js. */
 (function () {
   'use strict';
 
-  const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const { esc, store, meter, htmlToText, levenshtein } = Portfolio.util;
 
   class Interrupt extends Error {
     constructor() { super('interrupted'); this.name = 'Interrupt'; }
-  }
-
-  const store = {
-    get(key, fallback) {
-      try {
-        const v = localStorage.getItem('msh:' + key);
-        return v === null ? fallback : JSON.parse(v);
-      } catch (err) {
-        console.warn(`msh: storage read failed for "${key}"`, err);
-        return fallback;
-      }
-    },
-    set(key, value) {
-      try { localStorage.setItem('msh:' + key, JSON.stringify(value)); }
-      catch (err) { console.warn(`msh: storage write failed for "${key}"`, err); }
-    }
-  };
-
-  function levenshtein(a, b) {
-    const dp = Array.from({ length: a.length + 1 }, (_, i) => [i, ...Array(b.length).fill(0)]);
-    for (let j = 1; j <= b.length; j++) dp[0][j] = j;
-    for (let i = 1; i <= a.length; i++) {
-      for (let j = 1; j <= b.length; j++) {
-        dp[i][j] = Math.min(dp[i - 1][j] + 1, dp[i][j - 1] + 1, dp[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
-      }
-    }
-    return dp[a.length][b.length];
-  }
-
-  /** Segmented bar drawn with CSS so it lines up in any font. */
-  function meter(percent, widthCh = 24) {
-    return `<span class="meter" style="width:${widthCh}ch"><span style="width:${Math.max(0, Math.min(100, percent))}%"></span></span>`;
-  }
-
-  function htmlToText(html) {
-    const d = document.createElement('div');
-    d.innerHTML = html;
-    return d.textContent;
   }
 
   class Terminal {
@@ -58,8 +20,8 @@
       this.hIndex = this.history.length;
       this.draft = '';
       this.env = {
-        USER: 'guest', HOME: window.VFS.HOME, SHELL: '/bin/msh', TERM: 'xterm-256color',
-        HOSTNAME: `${window.CV.handle}-portfolio`, LANG: 'en_US.UTF-8', EDITOR: 'vim', COFFEE: 'required'
+        USER: 'guest', HOME: Portfolio.VFS.HOME, SHELL: '/bin/msh', TERM: 'xterm-256color',
+        HOSTNAME: `${Portfolio.cv.handle}-portfolio`, LANG: 'en_US.UTF-8', EDITOR: 'vim', COFFEE: 'required'
       };
       this.cwd = this.env.HOME;
       this.prevCwd = this.cwd;
@@ -80,9 +42,29 @@
     on(name, fn) { (this.listeners[name] ||= []).push(fn); }
     emit(name, ...args) { for (const fn of this.listeners[name] || []) fn(...args); }
 
+    /* ── helpers available to every command as t.<name> ─ */
+    get cv() { return Portfolio.cv; }
+    get config() { return Portfolio.config; }
+    get fx() { return Portfolio.fx; }
+    get esc() { return esc; }
+    get meter() { return meter; }
+    get store() { return store; }
+    unlock(id) { Portfolio.achievements.unlock(id); }
+
+    /** Reads a file for a command, printing the usual error and returning null when it cannot. */
+    readFile(path, cmdName) {
+      if (!path) { this.printText(`${cmdName}: missing file operand (or pipe something in: cat about.txt | ${cmdName})`, 'err'); return null; }
+      const { node, denied } = this.vfs.resolve(path, this.cwd);
+      if (denied || (node && node.locked)) { this.printText(`${cmdName}: ${path}: Permission denied`, 'err'); return null; }
+      if (!node) { this.printText(`${cmdName}: ${path}: No such file or directory`, 'err'); return null; }
+      if (node.type === 'dir') { this.printText(`${cmdName}: ${path}: Is a directory`, 'err'); return null; }
+      return this.vfs.read(node);
+    }
+
     /* ── registry ───────────────────────────────────────── */
-    register(name, def) {
-      this.commands.set(name, { name, group: 'System', desc: '', usage: name, ...def });
+    register(def) {
+      this.commands.set(def.name, { group: 'Fun', desc: '', usage: def.name, ...def });
+      for (const a of def.aliases || []) this.alias(a, def.name);
     }
     alias(name, expansion) { this.aliases[name] = expansion; }
     isCommand(name) { return this.commands.has(name) || name in this.aliases; }
@@ -186,8 +168,8 @@
 
     /* ── prompt ─────────────────────────────────────────── */
     promptHTML() {
-      const path = window.VFS.prettyPath(this.cwd);
-      return `<span class="p-user">${esc(this.env.USER)}@${esc(window.CV.handle)}</span><span class="p-sep">:</span><span class="p-path">${esc(path)}</span><span class="p-sym">$ </span>`;
+      const path = Portfolio.VFS.prettyPath(this.cwd);
+      return `<span class="p-user">${esc(this.env.USER)}@${esc(Portfolio.cv.handle)}</span><span class="p-sep">:</span><span class="p-path">${esc(path)}</span><span class="p-sym">$ </span>`;
     }
 
     newPrompt(value = '') {
@@ -228,7 +210,7 @@
       this.decorate();
       this.focus();
       this.scroll();
-      document.getElementById('title').textContent = `${this.env.USER}@${window.CV.handle}: ${window.VFS.prettyPath(this.cwd)}`;
+      document.getElementById('title').textContent = `${this.env.USER}@${Portfolio.cv.handle}: ${Portfolio.VFS.prettyPath(this.cwd)}`;
     }
 
     focus() {
@@ -589,5 +571,6 @@
     }
   }
 
-  window.MSH = { Terminal, Interrupt, store, esc, htmlToText, meter };
+  Portfolio.Terminal = Terminal;
+  Portfolio.Interrupt = Interrupt;
 })();

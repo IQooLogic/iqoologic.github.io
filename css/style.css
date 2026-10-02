@@ -1,54 +1,11 @@
-/* ── themes ─────────────────────────────────────────────
-   Each [data-theme] block defines the full palette, so the
-   theme preview dots in `theme` can reuse the same selectors. */
+/* Colour themes live in themes/*.js and are injected as [data-theme] variable blocks. */
 :root {
   --font: 'JetBrains Mono', 'Fira Code', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
   --sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --fs: 15px;
   --radius: 12px;
 }
-[data-theme="midnight"] {
-  --bg: #0d1117; --bg2: #161b22; --bar: #1c2129; --fg: #c9d1d9; --dim: #7d8590;
-  --accent: #58a6ff; --accent2: #d2a8ff; --ok: #3fb950; --warn: #d29922; --err: #ff7b72; --cyan: #39c5cf;
-  --sel: rgba(88, 166, 255, .28); --glow: rgba(88, 166, 255, .35);
-  --wall1: #0a1428; --wall2: #24103a; --wall3: #05070d;
-}
-[data-theme="dracula"] {
-  --bg: #282a36; --bg2: #21222c; --bar: #343746; --fg: #f8f8f2; --dim: #8b93b8;
-  --accent: #bd93f9; --accent2: #ff79c6; --ok: #50fa7b; --warn: #f1fa8c; --err: #ff5555; --cyan: #8be9fd;
-  --sel: rgba(189, 147, 249, .3); --glow: rgba(189, 147, 249, .35);
-  --wall1: #3a1d5c; --wall2: #5c1d47; --wall3: #14121c;
-}
-[data-theme="matrix"] {
-  --bg: #020a04; --bg2: #031208; --bar: #04160a; --fg: #39ff88; --dim: #1f8f4c;
-  --accent: #7dffb0; --accent2: #b6ffd2; --ok: #39ff88; --warn: #c8ff5a; --err: #ff5d5d; --cyan: #5dffe0;
-  --sel: rgba(57, 255, 136, .25); --glow: rgba(57, 255, 136, .55);
-  --wall1: #001a08; --wall2: #000d04; --wall3: #000000;
-}
-[data-theme="amber"] {
-  --bg: #120b02; --bg2: #1a1004; --bar: #211505; --fg: #ffb547; --dim: #a8712a;
-  --accent: #ffd08a; --accent2: #ffcf6e; --ok: #ffc04d; --warn: #fff1a8; --err: #ff6a3d; --cyan: #ffe0a3;
-  --sel: rgba(255, 181, 71, .25); --glow: rgba(255, 170, 50, .55);
-  --wall1: #2a1500; --wall2: #140900; --wall3: #000000;
-}
-[data-theme="nord"] {
-  --bg: #2e3440; --bg2: #3b4252; --bar: #3b4252; --fg: #e5e9f0; --dim: #8f9bb3;
-  --accent: #88c0d0; --accent2: #b48ead; --ok: #a3be8c; --warn: #ebcb8b; --err: #bf616a; --cyan: #8fbcbb;
-  --sel: rgba(136, 192, 208, .3); --glow: rgba(136, 192, 208, .3);
-  --wall1: #4c566a; --wall2: #2e3440; --wall3: #1f232b;
-}
-[data-theme="ubuntu"] {
-  --bg: #300a24; --bg2: #3b0d2c; --bar: #3e3a39; --fg: #ffffff; --dim: #b8a3b0;
-  --accent: #8ae234; --accent2: #e95420; --ok: #8ae234; --warn: #fce94f; --err: #ef2929; --cyan: #34e2e2;
-  --sel: rgba(233, 84, 32, .35); --glow: rgba(255, 255, 255, .25);
-  --wall1: #77216f; --wall2: #e95420; --wall3: #2c001e;
-}
-[data-theme="paper"] {
-  --bg: #fdf6e3; --bg2: #eee8d5; --bar: #e8e1cc; --fg: #3c4a50; --dim: #7c8a8f;
-  --accent: #268bd2; --accent2: #d33682; --ok: #4f8a00; --warn: #b58900; --err: #dc322f; --cyan: #2aa198;
-  --sel: rgba(38, 139, 210, .2); --glow: rgba(0, 0, 0, 0);
-  --wall1: #f3d9a4; --wall2: #c9e4f0; --wall3: #e9e4d6;
-}
+html { background: #05070d; }
 
 /* ── page ───────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; }
@@ -229,8 +186,8 @@ a.ext { color: var(--cyan); text-underline-offset: 3px; }
 a.ext:hover { color: var(--accent2); }
 
 .banner {
-  margin: 4px 0 6px;
-  font-size: min(var(--fs), calc((100vw - 64px) / 24));
+  margin: 4px 0 12px;
+  font-size: min(var(--fs), calc((100vw - 64px) / (var(--banner-cols, 40) * 0.6)));
   line-height: 1;
   font-weight: 400;
   background: linear-gradient(90deg, var(--accent), var(--accent2), var(--cyan));
@@ -295,25 +252,6 @@ a.ext:hover { color: var(--accent2); }
 }
 @keyframes blink { 50% { opacity: 0; } }
 
-.game { white-space: normal; }
-.snake-canvas { display: block; max-width: 100%; border: 1px solid var(--dim); border-radius: 4px; margin: 6px 0; touch-action: none; image-rendering: pixelated; }
-
-.overlay-canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 5; background: #000; }
-.overlay-hint { position: absolute; bottom: 12px; right: 16px; z-index: 6; font-size: 12px; color: #39ff88; opacity: .7; }
-
-.train {
-  position: absolute; top: 30%; left: 0; z-index: 5; margin: 0;
-  color: var(--fg); font-size: var(--fs); line-height: 1.15; pointer-events: none; white-space: pre;
-}
-
-.vim { position: absolute; inset: 0; z-index: 5; background: var(--bg); display: flex; flex-direction: column; font-size: var(--fs); padding: 8px 12px; }
-.vim-lines { flex: 1; overflow: hidden; }
-.vim-lines div { white-space: pre; height: 1.45em; display: flex; }
-.tilde { color: var(--accent); width: 2ch; flex: none; }
-.vim-center { flex: 1; text-align: center; color: var(--fg); }
-.vim-status { display: flex; justify-content: space-between; border-top: 1px solid var(--dim); padding-top: 4px; min-height: 1.6em; }
-.vim-pos { color: var(--dim); }
-
 /* ── toasts & confetti ──────────────────────────────── */
 .toasts { position: fixed; top: 16px; right: 16px; z-index: 50; display: flex; flex-direction: column; gap: 10px; pointer-events: none; max-width: calc(100vw - 32px); }
 .toast {
@@ -370,14 +308,16 @@ a.ext:hover { color: var(--accent2); }
   font: 800 44px var(--sans); color: #fff; background: linear-gradient(135deg, var(--accent), var(--accent2));
 }
 .gui h1 { margin: 0; font-size: 34px; line-height: 1.15; letter-spacing: -.02em; }
-.gui-role { margin: 4px 0 0; font-weight: 600; color: var(--accent); }
-[data-theme="paper"] .gui-role, [data-theme="matrix"] .gui-role, [data-theme="amber"] .gui-role { color: var(--g-fg); }
+.gui-role { margin: 4px 0 0; font-weight: 600; color: var(--gui-accent, var(--accent)); }
 .gui-tagline { margin: 6px 0 10px; color: var(--g-dim); }
 .gui-links { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 0; font-size: 14px; }
 .gui-links a, .gui-card a { color: inherit; }
 .gui-links a { text-decoration: none; border-bottom: 1px solid var(--g-line); }
 .gui-links a:hover { border-color: currentColor; }
 .gui-grid { display: grid; grid-template-columns: 1fr 280px; }
+.gui-grid.single { grid-template-columns: 1fr; }
+img.gui-avatar { object-fit: cover; }
+.gui-error { color: #d33; font-weight: 600; }
 .gui-main { padding: 28px 40px; }
 .gui-side { padding: 28px 28px; background: var(--g-soft); border-left: 1px solid var(--g-line); }
 .gui h2 { font-size: 12px; text-transform: uppercase; letter-spacing: .14em; color: var(--g-dim); margin: 0 0 12px; }
@@ -403,6 +343,9 @@ a.ext:hover { color: var(--accent2); }
 .gui-side p { margin: 0 0 8px; font-size: 14px; }
 .gui-side ul { font-size: 14px; }
 .gui-footer { padding: 14px 40px; border-top: 1px solid var(--g-line); font-size: 12px; color: var(--g-dim); text-align: center; }
+
+/* shown only when the portfolio cannot start at all */
+.fatal { position: fixed; inset: 24px; margin: 0; padding: 24px; overflow: auto; z-index: 100; background: #1a0b0b; color: #ffb4b4; border: 1px solid #ff6b6b; border-radius: 12px; font: 14px/1.6 var(--font); white-space: pre-wrap; }
 
 /* ── responsive ─────────────────────────────────────── */
 @media (max-width: 760px) {

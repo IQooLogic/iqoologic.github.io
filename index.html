@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Miloš — Terminal Portfolio</title>
+  <title>Terminal Portfolio</title>
   <meta name="description" content="Interactive terminal-style CV and portfolio. Type `help` to begin.">
   <meta name="theme-color" content="#0d1117">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%230d1117'/><text x='10' y='42' font-family='monospace' font-size='30' fill='%2358a6ff'>&gt;_</text></svg>">
@@ -22,7 +22,7 @@
       </div>
       <div class="title" id="title">guest@portfolio: ~</div>
       <div class="title-actions">
-        <button class="ghost-btn" data-run="gui" title="Open the classic résumé view">GUI</button>
+        <button class="ghost-btn" id="btn-gui" data-run="gui" title="Open the classic résumé view">GUI</button>
       </div>
     </header>
     <div class="body" id="body">
@@ -31,15 +31,8 @@
       </div>
       <div class="crt-overlay" aria-hidden="true"></div>
     </div>
-    <nav class="quickbar" id="quickbar" aria-label="Quick commands">
-      <button data-run="help">help</button>
-      <button data-run="about">about</button>
-      <button data-run="skills">skills</button>
-      <button data-run="experience">experience</button>
-      <button data-run="projects">projects</button>
-      <button data-run="contact">contact</button>
-      <button data-run="gui">gui</button>
-    </nav>
+    <!-- filled from quickCommands in site.config.js -->
+    <nav class="quickbar" id="quickbar" aria-label="Quick commands"></nav>
   </main>
 
   <button class="dock-icon" id="dock" hidden aria-label="Restore terminal">&gt;_</button>
@@ -51,12 +44,8 @@
     <p style="padding:2rem;font-family:monospace">This portfolio is an interactive terminal and needs JavaScript. Sorry!</p>
   </noscript>
 
-  <script src="js/data.js"></script>
-  <script src="js/fs.js"></script>
-  <script src="js/terminal.js"></script>
-  <script src="js/fun.js"></script>
-  <script src="js/commands.js"></script>
-  <script src="js/gui.js"></script>
-  <script src="js/main.js"></script>
+  <!-- The core loads every module listed in site.config.js — add or remove modules there, not here. -->
+  <script src="core/portfolio.js"></script>
+  <script src="site.config.js"></script>
 </body>
 </html>
