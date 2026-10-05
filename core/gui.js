@@ -31,11 +31,11 @@
 
   builtin('projects', 'Projects', (cv, h) => !(cv.projects || []).length ? '' : `
     <div class="gui-projects">${cv.projects.map(p => `
-      <a class="gui-project" href="${esc(p.link)}" target="_blank" rel="noopener noreferrer">
+      <${p.link ? `a class="gui-project" href="${esc(p.link)}" target="_blank" rel="noopener noreferrer"` : 'div class="gui-project"'}>
         <h3>${esc(p.name)}</h3>
         <p>${esc(p.description)}</p>
         ${h.tags(p.tech)}
-      </a>`).join('')}
+      </${p.link ? 'a' : 'div'}>`).join('')}
     </div>`);
 
   builtin('skills', 'Skills', cv => (cv.skills || []).map(g => `

@@ -24,7 +24,7 @@ You only edit **content**, **config**, **themes** and **commands**. You never ne
 The welcome banner is drawn from `banner` in `content/profile.js` (A–Z, 0–9 and `- _ . ! ?`).
 Set `bannerArt` instead if you want hand-made ASCII art.
 
-Everything in `content/` is example data — replace all of it.
+A project `link` and the `contact` entries other than `email` are optional — leave out what you do not have.
 
 ## Project layout
 

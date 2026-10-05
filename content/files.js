@@ -9,12 +9,14 @@
 
 Portfolio.file('/etc/motd', cv => `Welcome to PortfolioOS 26.10 "Curious Cat"\n\n * Documentation: help\n * Support:       contact\n * Résumé (GUI):  gui\n\n0 updates can be applied immediately. Everything is up to date. Like ${cv.name}.`);
 Portfolio.file('/etc/hostname', cv => `${cv.handle}-portfolio`);
-Portfolio.file('/etc/os-release', cv => `NAME="PortfolioOS"\nVERSION="26.10 (Curious Cat)"\nID=portfolioos\nID_LIKE=linux\nPRETTY_NAME="PortfolioOS 26.10"\nHOME_URL="${cv.contact.website}"\nSUPPORT_URL="mailto:${cv.contact.email}"`);
+Portfolio.file('/etc/os-release', cv => `NAME="PortfolioOS"\nVERSION="26.10 (Curious Cat)"\nID=portfolioos\nID_LIKE=linux\nPRETTY_NAME="PortfolioOS 26.10"\n${cv.contact.website ? `HOME_URL="${cv.contact.website}"\n` : ''}SUPPORT_URL="mailto:${cv.contact.email}"`);
 Portfolio.file('/etc/passwd', cv => `root:x:0:0:root:/root:/bin/msh\n${cv.handle}:x:1000:1000:${cv.fullName}:/home/${cv.handle}:/bin/msh\nguest:x:1001:1001:Curious Visitor:/home/guest:/bin/msh\nrecruiter:x:1337:1337:Welcome!:/home/guest:/bin/hire`);
 Portfolio.file('/etc/shadow', '', { locked: true });
 
 Portfolio.dir('/root', { locked: true });
 Portfolio.dir(`/home/${Portfolio.cv.handle}`, { locked: true }); // your own home dir: off limits to guests
+
+Portfolio.file('~/publications.txt', '“Smart TV Application based on Web 2.0”\nYU Info Conference, 2012\nStojković, Stošović');
 
 Portfolio.file('/dev/null', '');
 Portfolio.file('/dev/random', '4 // chosen by fair dice roll. guaranteed to be random. (xkcd 221)');

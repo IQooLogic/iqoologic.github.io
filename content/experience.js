@@ -2,33 +2,57 @@
 Portfolio.content({
   experience: [
     {
-      from: '2022-03', to: 'present',
-      role: 'Senior Security Software Engineer', company: 'Northwind Security Labs', location: 'Remote',
+      from: '2012', to: 'present',
+      role: 'Co-Founder & Senior Software Engineer', company: 'Advanced Security Technologies (AST)', location: 'Serbia',
       bullets: [
-        'Designed a Go ingest pipeline handling 2M+ events/sec with p99 latency under 15 ms.',
-        'Built passive TLS/TCP fingerprinting used to flag malicious clients in real time.',
-        'Cut alert noise by 60% with a rule-based prefilter and deduplication layer.'
+        "Architect and build AST's core cybersecurity products in Go and Java: threat detection, deception, threat intelligence and network prevention.",
+        'Designed and optimized a log-ingestion and search platform: billions of events (2.5+ TB), sub-second queries, crash-durable processing.',
+        'Built a Go network-fingerprint intelligence service: large-scale ingestion, structural and vector similarity search, automatic clustering, tiered long-term storage.',
+        'Architected an AI/ML threat-intelligence pipeline that correlates live attacker telemetry, detects novel attack patterns and serves REST and STIX/TAXII feeds to prevention systems.',
+        'Built a Firecracker microVM sandbox for isolated analysis of untrusted code in ephemeral, single-use environments.',
+        'Built a DNS threat-prevention server that blocks malicious domains and IPs in real time from live intelligence feeds.',
+        'Designed authentication and key management for distributed sensor nodes in untrusted, adversarial environments.',
+        'Built a high-volume Windows log-forwarding agent that emits structured JSON to the ingestion platform.',
+        'Designed and trained a PyTorch pipeline that classifies toxic and harmful conversations for GuardianEye (Interreg Bulgaria–Serbia; AST as Lead Partner).',
+        'Mentor engineers and define team-wide engineering standards, conventions and code-review practices.'
       ],
-      tech: ['Go', 'NATS', 'ClickHouse', 'Kubernetes', 'Prometheus']
+      tech: ['Go', 'Java', 'PyTorch', 'PostgreSQL', 'OpenSearch', 'Firecracker', 'STIX/TAXII', 'Docker']
     },
     {
-      from: '2019-06', to: '2022-02',
-      role: 'Backend Engineer', company: 'Blue Lantern Systems', location: 'Belgrade',
+      from: '2015', to: 'present',
+      role: 'Java Instructor', company: 'IT Centar', location: 'Serbia',
       bullets: [
-        'Migrated a Python monolith to Go services; infra cost dropped by 40%.',
-        'Introduced structured logging and tracing across 30+ services.',
-        'Mentored four junior engineers; two are now team leads.'
+        'Teach Java to technical and non-technical students by building desktop, web and REST API applications.',
+        'Building an open-source, self-hostable programming-education platform with sandboxed code execution and course tooling.'
       ],
-      tech: ['Go', 'Python', 'PostgreSQL', 'Docker', 'gRPC']
+      tech: ['Java', 'Spring', 'REST APIs', 'Sandboxing']
     },
     {
-      from: '2016-09', to: '2019-05',
-      role: 'Systems Administrator → DevOps', company: 'Danube Hosting', location: 'Novi Sad',
+      from: '2012', to: '2013',
+      role: 'Java / Android Developer', company: 'NissaTech Research Center', location: 'Serbia',
+      bullets: ['Built a REST API and an Android app with Bluetooth device integration.'],
+      tech: ['Java', 'Android', 'Bluetooth', 'REST']
+    },
+    {
+      from: '2012', to: '2013',
+      role: 'Java Developer', company: 'ARMA Digital', location: 'Serbia',
+      bullets: ['Developed Spring / Java web applications.'],
+      tech: ['Java', 'Spring']
+    },
+    {
+      from: '2010', to: '2012',
+      role: 'Developer', company: 'Samsung / VTS Apps Team', location: 'Serbia',
       bullets: [
-        'Ran 400+ Linux servers; automated provisioning with Ansible.',
-        'Built the first CI/CD pipeline at the company — deploys went from weekly to daily.'
+        'Built Smart TV and Bada applications.',
+        'Awarded for the best Smart TV application.'
       ],
-      tech: ['Linux', 'Ansible', 'Bash', 'Nginx', 'Jenkins']
+      tech: ['Smart TV', 'Bada', 'JavaScript']
+    },
+    {
+      from: '2010', to: '2010',
+      role: 'Front-End Developer', company: 'ATES International', location: 'Serbia',
+      bullets: ['Web front-end development.'],
+      tech: ['HTML', 'CSS', 'JavaScript']
     }
   ]
 });

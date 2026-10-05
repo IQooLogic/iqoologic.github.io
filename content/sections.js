@@ -5,12 +5,16 @@
  * Using a built-in name (e.g. 'projects') replaces that built-in section.
  */
 
-// Example: not shown until you add 'now' to gui.main in site.config.js.
 Portfolio.guiSection('now', {
   title: 'Currently',
   render: (cv, h) => h.list([
-    'Exploring eBPF-based network sensors',
-    'Mentoring two engineers',
-    'Open to interesting security work'
+    'AI/ML-driven threat intelligence at AST',
+    'Building an open-source programming-education platform',
+    'Teaching Java and mentoring engineers'
   ])
+});
+
+Portfolio.guiSection('publications', {
+  title: 'Publications',
+  render: (cv, h) => h.list(['“Smart TV Application based on Web 2.0” — YU Info Conference, 2012 (Stojković, Stošović)'])
 });

@@ -33,7 +33,7 @@ Portfolio.configure({
   // certifications, languages, interests — or your own, see content/sections.js.
   gui: {
     main: ['about', 'experience', 'projects'],
-    side: ['skills', 'education', 'certifications', 'languages', 'interests'],
+    side: ['now', 'skills', 'education', 'publications', 'languages', 'interests'],
     titles: {}, // e.g. { projects: 'Selected work' }
     footer: null // null = default hint about achievements, '' = no footer
   },

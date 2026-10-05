@@ -335,7 +335,7 @@ img.gui-avatar { object-fit: cover; }
 .gui-side .gui-tags span { background: var(--g-bg); }
 .gui-projects { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
 .gui-project { display: block; text-decoration: none; padding: 14px; border: 1px solid var(--g-line); border-radius: 12px; transition: transform .2s, box-shadow .2s; }
-.gui-project:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0, 0, 0, .12); }
+a.gui-project:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0, 0, 0, .12); }
 .gui-project p { margin: 4px 0 0; font-size: 14px; color: var(--g-dim); }
 .gui-skill { display: grid; grid-template-columns: 1fr 70px; align-items: center; gap: 10px; font-size: 13px; }
 .gui-meter { height: 6px; border-radius: 3px; background: var(--g-line); overflow: hidden; }

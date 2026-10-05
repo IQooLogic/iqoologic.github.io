@@ -23,7 +23,7 @@
     for (const p of cv.projects || []) {
       projects[`${p.slug}.md`] = file([
         `# ${p.name}`, '', p.description, '', ...p.details.map(d => `- ${d}`), '',
-        `tech: ${p.tech.join(', ')}`, `link: ${p.link}`
+        `tech: ${p.tech.join(', ')}`, ...(p.link ? [`link: ${p.link}`] : [])
       ].join('\n'));
     }
     const skills = (cv.skills || []).map(g => `# ${g.group}\n` + g.items.map(([n, lvl]) => `- ${n.padEnd(22)} ${lvl}%`).join('\n')).join('\n\n');

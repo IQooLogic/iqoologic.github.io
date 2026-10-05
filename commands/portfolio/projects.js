@@ -19,7 +19,7 @@ Portfolio.command({
         <div class="card-title">${t.cmd('projects ' + p.slug, p.name)}</div>
         <div>${esc(p.description)}</div>
         <div class="tags">${p.tech.map(x => `<span class="tag">${esc(x)}</span>`).join('')}</div>
-        <div class="card-link">${t.link(p.link, p.link.replace(/^https?:\/\//, ''))}</div>
+        ${p.link ? `<div class="card-link">${t.link(p.link, p.link.replace(/^https?:\/\//, ''))}</div>` : ''}
       </div>`).join('')}</div>`);
     if (cv.projects.length) t.print(`<span class="dim">click a name, or run </span>${t.cmd('projects ' + cv.projects[0].slug)}<span class="dim"> · files live in </span>${t.cmd('ls ~/projects')}`);
   }

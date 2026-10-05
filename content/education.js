@@ -1,8 +1,8 @@
 /* Degrees and certifications. */
 Portfolio.content({
   education: [
-    { from: '2012', to: '2016', degree: 'BSc, Computer Science', school: 'University of Belgrade', note: 'Thesis: anomaly detection in network traffic' }
+    { from: '2009', to: '2012', degree: 'B.Sc., Computer Science', school: 'The School of Higher Technical Professional Education, Niš' }
   ],
 
-  certifications: ['OSCP (example)', 'CKA (example)']
+  certifications: []
 });
