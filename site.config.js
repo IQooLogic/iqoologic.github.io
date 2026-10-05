@@ -12,7 +12,7 @@
  */
 Portfolio.configure({
   title: null,       // browser tab title; null means "<fullName> — Terminal Portfolio"
-  description: 'Interactive terminal-style CV and portfolio. Type `help` to begin.',
+  description: 'Miloš Stojković — senior software engineer building cybersecurity systems and distributed backends in Go and Java. Interactive terminal-style CV.', // keep in sync with index.html (link previews read the static one)
 
   boot: 'auto',      // 'full' | 'quick' (no BIOS) | 'off' | 'auto' (full on first visit, quick after)
   theme: 'midnight', // default theme for first-time visitors

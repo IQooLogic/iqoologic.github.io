@@ -24,7 +24,8 @@ Portfolio.content({
   ],
 
   contact: {
-    email: 'iqoologic@gmail.com'
+    email: 'iqoologic@gmail.com',
+    github: 'https://github.com/iqoologic'
   },
 
   languages: [['Serbian', 'native'], ['English', 'advanced']],
